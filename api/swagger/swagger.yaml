@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: Logbook service
 # during dev, should point to your local machine
 host: localhost:10010
 # basePath prefixes all resource paths 
@@ -27,18 +27,25 @@ paths:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/EntryResponse"
-        # responses may fall through to errors
+            $ref: "#/definitions/PostEntriesResponse"
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Post a log entry to the service
+      operationId: addEntry
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PostEntriesResponse"
+            
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  Log:
+  Entry:
     type: object
     properties:
       id:
@@ -61,13 +68,20 @@ definitions:
     required:
       - type
       - attributes
-  EntryResponse:
+  GetEntriesResponse:
     type: object
     properties:
       data:
         type: array
         items:
-          $ref: "#/definitions/Log"
+          $ref: "#/definitions/Entry"
+    required:
+      - data
+  PostEntriesResponse:
+    type: object
+    properties:
+      data:
+        $ref: "#/definitions/Entry"
     required:
       - data
   ErrorResponse:

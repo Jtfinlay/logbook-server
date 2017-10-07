@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = { getAll };
+module.exports = { getAll, addEntry };
 
-let logs = {
+let getResponse = {
     data: [{
         type: 'entry',
         id: '70257a51-bda4-4ce0-9c8b-7e68644c301f',
@@ -21,6 +21,21 @@ let logs = {
     }]
 };
 
+let postResponse = {
+    data: {
+        type: 'entry',
+        id: '70257a51-bda4-4ce0-9c8b-7e68644c301f',
+        attributes: {
+            'created-at': '2017-08-27T22:50:36.137Z',
+            'elapsed-time': 356000
+        }
+    }
+};
+
 function getAll(req, res) {
-    res.json( logs );
+    res.json( getResponse );
+}
+
+function addEntry(req, res) {
+    res.json( postResponse );
 }
