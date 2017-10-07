@@ -18,8 +18,8 @@ consumes:
 produces:
   - application/json
 paths:
-  /api/logs:
-    x-swagger-router-controller: logs
+  /api/entries:
+    x-swagger-router-controller: entries
     get:
       description: Returns log entries to the caller
       operationId: getAll
