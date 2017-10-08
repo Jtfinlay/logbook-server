@@ -27,19 +27,33 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/PostEntriesResponse"
+            $ref: "#/definitions/GetEntriesResponse"
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
     post:
-      description: Post a log entry to the service
+      summary: Add a new log entry
       operationId: addEntry
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: result
+          required: true
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  value:
+                    $ref: "#/definitions/Entry"
       responses:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/PostEntriesResponse"
+            $ref: "#/definitions/SingleEntryResponse"
             
   /swagger:
     x-swagger-pipe: swagger_raw
@@ -64,7 +78,6 @@ definitions:
             description: The amount of time recorded for this entry
         required:
           - created-at
-          - elapsed-time
     required:
       - type
       - attributes
@@ -77,7 +90,7 @@ definitions:
           $ref: "#/definitions/Entry"
     required:
       - data
-  PostEntriesResponse:
+  SingleEntryResponse:
     type: object
     properties:
       data:
